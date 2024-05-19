@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#maindiv {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    /* flex-direction: row; */
+    /* background: red; */
+    justify-content: center;
+    align-items: center;
+}
+
+#div {
+    height: 70vh; 
+     width: 70%;
+    display: flex;
+    flex-direction: column;
+    /* background: cyan; */
+    justify-content: center;
+    align-items:center;
+}
+
+#login {
+    height: 70vh;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    /* background: yellow; */
+    justify-content: start;
+    align-items:center;
+    /* border-radius: 10px; */
+}
+
+#email, #password {
+    margin-top: 10px;
+    border-radius: 7px;
+    width: 50%;
+    height: 6%;
+}
+
+#button {
+    margin-top: 10px;
+    width: 50%;
+    height: 10%;
+    background-color: skyblue;
+    border-radius: 10px;
+}

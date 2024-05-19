@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonus Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="navbar-left">
+            <i class  class="fas fa-money-bill-wave"></i>
+            <span>Payroll System</span>
+        </div>
+        <ul class="navbar-right">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="salary-calculator.html">Salary Calculator</a></li>
+            <li><a href="gratuity-calculator.html">Gratuity Calculator</a></li>
+            <li><a href="leave-encashment-calculator.html">Leave Encashment Calculator</a></li>
+            <li><a href="bonus-calculator.html">Bonus Calculator</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <div id="content">
+        <h2>Bonus Calculator</h2>
+        <div class="form-container">
+            <div class="form-group">
+                <label for="monthlySalary">Monthly Salary:</label>
+                <input type="number" id="monthlySalary" required>
+            </div>
+            <div class="form-group">
+                <label for="bonusPercentage">Bonus Percentage:</label>
+                <input type="number" id="bonusPercentage" required>
+            </div>
+            <button onclick="calculateBonus()">Calculate Bonus</button>
+            <div id="result" onchange="show()" ></div>
+            <button onclick="printPDF()">Print as PDF</button>
+        </div>
+    </div>
+
+    <script>
+        function calculateBonus() {
+            const monthlySalary = document.getElementById('monthlySalary').value;
+            const bonusPercentage = document.getElementById('bonusPercentage').value;
+
+            if (!monthlySalary || !bonusPercentage) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            if (bonusPercentage < 8.33 || bonusPercentage > 20) {
+                alert('Please enter a bonus percentage between 8.33% and 20%');
+                return;
+            }
+
+            const bonus = monthlySalary * bonusPercentage / 100;
+
+            document.getElementById('result').innerText = `Your bonus is Rs ${bonus.toFixed(2)}`;
+
+            // Save to database
+            fetch('http://localhost:3000/api/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ type: 'Bonus', amount: bonus })
+            })
+            .then(response => response.json())
+            .then(data => console.log('Saved with ID:', data.id))
+            .catch(error => console.error('Error:', error));
+        }
+
+        function printPDF() {
+            window.print();
+        }
+
+        function show() {
+            document.getElementById("result").style.display = "block";
+        }
+
+    </script>
+</body>
+</html>

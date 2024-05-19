@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./login.css">
+</head>
+<body>
+    <div id="maindiv">
+        <div id="div">
+             <h1>Login with your Email to Proceed.</h1>
+             <div id="login">
+                 <label for="email">Enter you Email: </label>
+                 <input type="email" id="email" required>
+     
+                 <label for="password" style="margin-top: 10px;">Enter your Password: </label>
+                 <input type="password" name="" id="password" required>
+
+                 <button id="button" onclick="login()"  >Login</button>
+
+             </div>
+        </div>
+    </div>
+</body>
+    <script>
+        function login() {
+            document.getElementById("button").addEventListener("click", function() {
+                if(document.getElementById("email").value == "" || document.getElementById("password").value == "" ) {
+                    alert("Please enter your email and password!")
+                }else {
+                    window.location.href = "./Index.html"
+
+                }
+            })
+        }
+    </script>
+</html>

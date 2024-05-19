@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="navbar-left">
+        <i class="fas fa-money-bill-wave"></i>
+        <span>Payroll System</span>
+      </div>
+      <ul class="navbar-right">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="salary-calculator.html">Salary Calculator</a></li>
+        <li><a href="gratuity-calculator.html">Gratuity Calculator</a></li>
+        <li>
+          <a href="leave-encashment-calculator.html">Leave Encashment Calculator</a>
+        </li>
+        <li><a href="bonus-calculator.html">Bonus Calculator</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+    <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+      <button id="history">Show History</button>
+    </div>
+
+    <div id="content">
+      <h2>History</h2>
+      <table style="border: 2px black solid; width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <!-- <th>ID</th> -->
+            <th>Type</th>
+            <th>Amount</th>
+            <!-- <th>Date</th> -->
+          </tr>
+        </thead>
+        <tbody id="historyTableBody"></tbody>
+      </table>
+    </div>
+
+    <script>
+      document.getElementById("history").addEventListener("click", function(event) {
+        event.preventDefault();
+        fetch("http://localhost:3000/api/history")
+          .then((response) => response.json())
+          .then((data) => {
+            const tableBody = document.getElementById("historyTableBody");
+            tableBody.innerHTML = ""; // Clear existing rows
+            data.forEach((item) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+              
+                <td>${item.type}</td>
+                <td>${"Rs." + item.amount}</td>
+                
+              `;
+              tableBody.appendChild(row);
+            });
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+    </script>
+  </body>
+</html>
